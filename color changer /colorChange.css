@@ -1,0 +1,42 @@
+div {
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center;
+    margin-top: 100px; /* optional: space from top */
+    gap: 40px; /* optional: spacing between buttons */
+}
+
+.text {
+    font-size: 20px;
+    color: red;
+    
+}
+    button {
+        height: 100px;
+        width: 150px;
+        padding: 3px;
+        margin: 3px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        border: 1px solid black;
+    }
+    #white {
+        background-color: white;
+        color: black;
+    }
+    
+    #blue {
+        background-color: blue;
+        color: white;
+    }
+    
+    #grey {
+        background-color: gray;
+        color: white;
+    }
+    
+    #yellow {
+        background-color: yellow;
+        color: black;
+    }
