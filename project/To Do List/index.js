@@ -1,18 +1,3 @@
-const file='listFile.txt';
-
-const fs = require('fs');
-
-fs.readFile(file, 'utf8', (err, data) => {
-  if (err) throw err;
-  console.log(data);
-});
-
-
-
-fs.appendFile(file, '\nMore text', (err) => {
-    if (err) throw err;
-    console.log('Appended!');
-});
   
 // setting current date 
 
@@ -23,6 +8,7 @@ function setTime(){
 }
 setInterval(setTime,1000);
 setTime();
+
 
 
 // adding new taks
