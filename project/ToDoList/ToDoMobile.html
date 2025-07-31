@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Basic reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  #container {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px;
+  }
+  
+  /* Header and Add New List Button */
+  #nav_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  #nav_bar h3 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  #nav_bar #add {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  #nav_bar #add:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Task input and confirm button */
+  #list > input[type="text"],
+  #list > button {
+    margin-bottom: 12px;
+  }
+  
+  #list input[type="text"] {
+    width: calc(100% - 90px);
+    padding: 12px 14px;      
+    font-size: 1rem;          
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    height: 48px;        
+  }
+  
+  #list button {
+    padding: 8px 12px;
+    margin-left: 8px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  #list button:hover {
+    background-color: #218838;
+  }
+  
+  /* Date display */
+  #date {
+    text-align: right;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Task List Styles */
+  #taskList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #taskList li {
+    background-color: #f9f9f9;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  #taskList li p {
+    margin: 0;
+    flex-grow: 1;
+    padding: 0 10px;
+    color: #333;
+  }
+  
+  /* Toggleable "radio" checkbox
+  #taskList input[type="radio"], */
+  #taskList input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+    cursor:pointer ;
+    outline: none;
+    transition: border 0.2s ease;
+    margin-left: 5px;
+  }
+  
+  #taskList input[type="radio"]:checked::before,
+  #taskList input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background-color: #dc0976;
+    border-radius: 50%;
+  }
+  
+  /* Delete Button */
+  .delete-btn {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="nav_bar">
+            <h3>To Do List</h3>
+            <button id="add">Add New List</button>
+        </div>
+        <div id="list">
+            <div id="date"></div>
+            <ul id="taskList">
+
+            </ul>
+        </div>
+    </div>
+    <script>
+        // setting current date 
+
+const todayDate=document.getElementById("date");
+function setTime(){
+    const nowInKolkata = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+    todayDate.innerHTML=nowInKolkata;
+}
+setInterval(setTime,1000);
+setTime();
+
+
+// adding new taks
+const addNewList=document.getElementById("add");
+
+addNewList.addEventListener("click" , () => {
+// if input box is already open and 
+// you are clicking on add new list again
+// so just return
+    if(document.querySelector("#takingInput"))
+        return ;
+
+
+    let input=document.createElement("input");
+    input.placeholder="Insert new Task";
+    input.id="takingInput";
+
+    let inputConfirm=document.createElement("button");
+    inputConfirm.textContent="add";
+
+    // todayDate.insertAdjacentElement("beforebegin",input );
+    // todayDate.insertAdjacentElement("beforebegin",inputConfirm );
+    todayDate.before(input,inputConfirm);
+
+// data if filled and want to add into list
+    inputConfirm.addEventListener("click", () => {
+        let item= document.createElement("p");
+        const justHolding=input.value.trim();
+        item.textContent=justHolding;
+
+// if input area is empty dont create any thing
+        if(!justHolding) {
+            input.remove();
+            inputConfirm.remove();
+            return;
+        }
+
+        let taskComplete=document.createElement("input");
+        taskComplete.type="checkbox";
+
+        
+
+        let taskDelete=document.createElement("button");
+        taskDelete.textContent="delete";
+        
+        
+        let newList=document.createElement("li");
+
+// add into list first for better reach while deletion
+        newList.append(item,taskDelete,taskComplete);
+
+// add on the wabsite
+        document.getElementById("taskList").append(newList);
+        
+// want to delete the added task
+        taskDelete.addEventListener("click" , () => {
+
+// to delete the closest li tag from where the button was clicked
+            taskDelete.closest("li").remove();
+        });
+
+// remove input area and button once task is added
+        input.remove();
+        inputConfirm.remove();
+    });
+    
+});
+    </script>
+</body>
+</html>
