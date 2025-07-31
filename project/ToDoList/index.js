@@ -9,7 +9,7 @@ function setTime(){
 setInterval(setTime,1000);
 setTime();
 
-
+// this is waste line of code
 
 // adding new taks
 const addNewList=document.getElementById("add");
