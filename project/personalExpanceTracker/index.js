@@ -1,6 +1,15 @@
-// local storage file where the data is stored
+// local storage file where the data is stored 
 let file = JSON.parse(localStorage.getItem("data")) || [];
-
+// here newly added product stored
+let newProductNameList=JSON.parse(localStorage.getItem("product")) || [];
+// adding product back to list on reload
+window.onload = load;
+function load (){
+    newProductNameList.forEach(element => {
+    newList(element);
+    });
+    allExpense(file);
+}
 
 const drop_down = document.getElementById("product");
 
@@ -12,9 +21,12 @@ const date = new Date().toLocaleDateString("en-IN", {
     year: "numeric"
 });
 
+
+// creating date into web page
 let htmlDate=document.createElement("p");
 htmlDate.id="date-style";
 htmlDate.textContent=date;
+// adding date into web page
 document.getElementById("app_name").insertAdjacentElement("afterend",htmlDate);
 
 function addProduct (product) {
@@ -43,6 +55,7 @@ function addInputDiv(){
     addButton.id="addButtonId";
     addButton.textContent="Add";
 
+    // making clone for products so can use at different places
     const cloneDropDown = drop_down.cloneNode(true);
 
     inputDiv.append(inputBox,cloneDropDown,addButton);
@@ -54,9 +67,10 @@ function addInputDiv(){
         if(inputBox.value && cloneDropDown.value){
             // check if amount is number or not
             // if it number all good
-            if(Number.isInteger(inputBox.value)){
-                let amount=parseInt(inputBox.value);
+            let amount=parseInt(inputBox.value);
+            if(Number.isInteger(amount)){
                 addData(amount,cloneDropDown.value);
+                allExpense();
             }
             // if is not just send an alert 
             else
@@ -70,6 +84,7 @@ function addInputDiv(){
     
 };
 
+// adding data into file after clicking add button if all data is correct
 function addData (Amount,product){
     let newExpanse = {
         date , Amount ,product
@@ -78,8 +93,59 @@ function addData (Amount,product){
     updateLocalHost();
 };
 
+// updating local host 
 function updateLocalHost () {
     localStorage.setItem("data",JSON.stringify(file));
 };
+
 // whenever you need to clear local storage
 // localStorage.clear();
+
+
+// if want to add new product in the list then
+
+const productDropdown = document.getElementById("product");
+const newProduct = document.getElementById("add-new");
+
+newProduct.addEventListener("click", () => {
+    const newProduct = prompt("Enter new Product You Want To Add");
+    newList(newProduct);
+});
+// adding new product in list 
+function newList (newProductName) {
+    if (newProductName) {
+        const newOption = document.createElement("option");
+        newOption.value = newProductName;
+        newOption.textContent = newProductName;
+
+        // Insert new option at end of list
+        const addNewOption = document.querySelector('#product option[value="add-new"]');
+        productDropdown.appendChild(newOption);
+
+
+        //   adding the product to local list 
+        if (!newProductNameList.includes(newProductName)) {
+            newProductNameList.push(newProductName);
+            localStorage.setItem("product", JSON.stringify(newProductNameList));
+        }
+    } else {
+        // Reset to the first option if user cancels
+        productDropdown.selectedIndex = 0;
+    }
+};
+
+// display all the expance with date amount and product form
+const expenseList = document.getElementById("all-expense");
+function allExpense (store) {
+    expenseList.innerHTML="";
+    store.forEach(item => {
+        let temp=document.createElement("p");
+        temp.textContent=`${item.date} | ₹${item.Amount} | ${item.product} ` ;
+        expenseList.appendChild(temp);
+    })
+};
+
+const buttonHTMl =document.getElementById("search-button");
+
+buttonHTMl.addEventListener("click" , );
+

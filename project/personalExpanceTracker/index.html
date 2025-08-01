@@ -14,25 +14,26 @@
         <div id="expanse-show">
             <select name="duration" id="duration"  required>
                 <option value="" disabled selected hidden>Duration</option>
-                <option value="today">today</option>
-                <option value="yesterday">yesterday</option>
-                <option value="week">Last Week</option>
-                <option value="month">Last Month</option>
-                <option value="year">Last Year</option>
-                <option value="">Calender</option>
+                <option value="1">today</option>
+                <option value="2">Last 2 days</option>
+                <option value="7">Last 7 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="365">Last 365 days</option>
             </select>
             <select name="product" id="product"  required>
                 <option value="" disabled selected hidden>product</option>
-                <option value="addn">Add New</option>
                 <option value="all">All</option>
                 <option value="food">Food</option>
-                <option value="cloth">Clothing</option>
-                <option value="smoke">Smoking</option>
-                <option value="drink">Drinking</option>
-                <option value="books">Stationary</option>
+                <option value="cloth">Cloth</option>
+                <option value="smoke">Smoke</option>
+                <option value="drink">Drink</option>
+                <option value="books">books</option>
             </select>
-            
             <button id="search-button">Search</button>
+            <button id="add-new">Add New product</button>
+
+        </div>
+        <div id="all-expense">
 
         </div>
     <script src="index.js"></script>
