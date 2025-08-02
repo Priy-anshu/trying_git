@@ -10,18 +10,20 @@
         <div id="nav-bar">
             <p id="app_name">Personal Expanse Tracker</p>
             <button id="add">Add New Expanse</button>
+            <button id="theme-toggle">Light / Dark</button>
+
         </div>
         <div id="expanse-show">
             <select name="duration" id="duration"  required>
                 <option value="" disabled selected hidden>Duration</option>
-                <option value="1">today</option>
-                <option value="2">Last 2 days</option>
-                <option value="7">Last 7 days</option>
-                <option value="30">Last 30 days</option>
-                <option value="365">Last 365 days</option>
+                <option value="today">today</option>
+                <option value="yesterday">yesterday</option>
+                <option value="week">Last week</option>
+                <option value="month">Last month</option>
+                <option value="year">Last year</option>
             </select>
             <select name="product" id="product"  required>
-                <option value="" disabled selected hidden>product</option>
+                <option value="" disabled selected hidden>Product</option>
                 <option value="all">All</option>
                 <option value="food">Food</option>
                 <option value="cloth">Cloth</option>

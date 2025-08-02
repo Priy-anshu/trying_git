@@ -1,7 +1,13 @@
 // local storage file where the data is stored 
 let file = JSON.parse(localStorage.getItem("data")) || [];
+
 // here newly added product stored
 let newProductNameList=JSON.parse(localStorage.getItem("product")) || [];
+
+// calender month days
+const calenderMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+
 // adding product back to list on reload
 window.onload = load;
 function load (){
@@ -70,7 +76,6 @@ function addInputDiv(){
             let amount=parseInt(inputBox.value);
             if(Number.isInteger(amount)){
                 addData(amount,cloneDropDown.value);
-                allExpense();
             }
             // if is not just send an alert 
             else
@@ -91,6 +96,7 @@ function addData (Amount,product){
     };
     file.push(newExpanse);
     updateLocalHost();
+    allExpense(file);
 };
 
 // updating local host 
@@ -145,7 +151,105 @@ function allExpense (store) {
     })
 };
 
+const themeToggleBtn = document.getElementById("theme-toggle");
+
+themeToggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+
+  // store user preference in localStorage of theme
+  const isDark = document.body.classList.contains("dark-mode");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+// On page load, apply saved theme
+window.addEventListener("load", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+});
+
+
+// showing expenses for time bound date
 const buttonHTMl =document.getElementById("search-button");
 
-buttonHTMl.addEventListener("click" , );
+buttonHTMl.addEventListener("click" , searchItem);
+
+// all those item which should be shown is adding in an array 
+// function searchItem () {
+//     const productaName = document.getElementById("product").value;
+//     const timeDuration = document.getElementById("duration").value;
+//     timeDuration = number(timeDuration);
+//     let resultOfSearch = [];
+//     let checkDate=date;
+//     for (let len=file.length;(timeDuration>0 && len>0);timeDuration--){
+//         file.forEach(item => {
+//             if(item.date==checkDate && item.product==productaName){
+//                 resultOfSearch.push(item);
+//                 len--;
+//             }
+//         });
+//         let day=checkDate.slice(0,2);
+//         if(day>1){
+//             checkDate= (day-1) + checkDate.slice(2);
+//         }
+//         else {
+//             let month=checkDate.slice(3,5);
+//             day=calenderMonth[Number(month)-1];
+//             if(month>1){
+//                 checkDate = day +"/" + (month -1) + checkDate.slice(6);
+//             }
+//             else {
+//                 let year=checkDate.slice(6);
+//                 checkDate= "31/12/" + (year-1);
+//             }
+//         }
+//     };
+//     allExpense(resultOfSearch);
+// };
+
+function searchItem() {
+    const productName = document.getElementById("product").value;
+    const duration = document.getElementById("duration").value;
+
+    let resultOfSearch = [];
+
+    // Get today's date
+    const today = new Date();
+
+    // Calculate starting date based on duration
+    let startDate = new Date(today); // default = today
+
+    if (duration === "yesterday") {
+        startDate.setDate(today.getDate() - 1);
+    } else if (duration === "week") {
+        startDate.setDate(today.getDate() - 7);
+    } else if (duration === "month") {
+        startDate.setMonth(today.getMonth() - 1);
+    } else if (duration === "year") {
+        startDate.setFullYear(today.getFullYear() - 1);
+    }
+
+    // Format function to match your saved format "dd/mm/yyyy"
+    function formatDate(dateObj) {
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    const fromDate = formatDate(startDate);
+    const toDate = formatDate(today);
+
+    resultOfSearch = file.filter(item => {
+        const itemDate = item.date;
+        // Check product match
+        const productMatch = (productName === "all") || (item.product === productName);
+        // Check date range match
+        return productMatch && itemDate >= fromDate && itemDate <= toDate;
+    });
+
+    allExpense(resultOfSearch);
+}
+
 
