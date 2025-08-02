@@ -56,7 +56,10 @@ body {
     margin-bottom: 5px;
 }
 
-
+#just-msg {
+    margin-bottom: 0px;
+    color: #000000;
+}
 #expanse-show select,
 #expanse-show #drop-down select,
 #expanse-show #amount-output,
