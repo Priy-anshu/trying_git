@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+        <div id="nav-bar">
+            <p id="app_name">Personal Expanse Tracker</p>
+            <button id="add">Add New Expanse</button>
+            <button id="theme-toggle">Light / Dark</button>
+
+        </div>
+        <div id="expanse-show">
+            <select name="duration" id="duration"  required>
+                <option value="" disabled selected hidden>Duration</option>
+                <option value="today">today</option>
+                <option value="yesterday">yesterday</option>
+                <option value="week">Last week</option>
+                <option value="month">Last month</option>
+                <option value="year">Last year</option>
+            </select>
+            <select name="product" id="product"  required>
+                <option value="" disabled selected hidden>Product</option>
+                <option value="all">All</option>
+                <option value="food">Food</option>
+                <option value="cloth">Cloth</option>
+                <option value="Smoking">Smoking</option>
+                <option value="drinking">drinking</option>
+                <option value="stationary">stationary</option>
+            </select>
+            <button id="search-button">Search</button>
+            <button id="add-new">Add New product</button>
+
+        </div>
+        <div id="just-msg">
+            Total Expanse Made :-
+        </div>
+        <div id="total-expences">
+
+        </div>
+
+        <div id="all-expense">
+
+        </div>
+    <script src="index.js"></script>
+</body>
+</html>
