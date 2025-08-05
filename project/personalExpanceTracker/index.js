@@ -276,6 +276,6 @@ function totalExpenses (expanceFile) {
     for(let i=0;i<expanceFileData.length;i++){
         let paragraph = document.createElement("p");
         paragraph.textContent=`${expanceFileData[i].product} : ${expanceFileData[i].amount}`;
-        textArea.insertAdjacentElement("beforeend",paragraph);
+        textArea.insertAdjacentElement("afterbegin",paragraph);
     }
 }
