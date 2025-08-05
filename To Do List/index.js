@@ -1,6 +1,6 @@
 const file='listFile.txt';
 
-const fs = require('fs');
+const fs = import('fs');
 
 fs.readFile(file, 'utf8', (err, data) => {
   if (err) throw err;
