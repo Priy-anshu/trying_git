@@ -1,17 +1,5 @@
 const file='listFile.txt';
-import fs from './module.js';
 
-fs.readFile(file, 'utf8', (err, data) => {
-  if (err) throw err;
-  console.log(data);
-});
-
-
-
-fs.appendFile(file, '\nMore text', (err) => {
-    if (err) throw err;
-    console.log('Appended!');
-});
   
 // setting current date 
 
