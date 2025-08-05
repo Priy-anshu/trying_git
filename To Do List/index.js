@@ -1,6 +1,5 @@
 const file='listFile.txt';
-
-const fs = import('fs');
+import fs from './module.js';
 
 fs.readFile(file, 'utf8', (err, data) => {
   if (err) throw err;
